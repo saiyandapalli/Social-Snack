@@ -16,7 +16,7 @@ public class User {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-
+ 
     public ArrayList<Group> getGroups() {
         return groups;
     }
