@@ -34,7 +34,7 @@ public class Utils{
                                 Log.w("Aww", "signInWithEmail:failed", task.getException());
                                 Toast.makeText(context, "Sign in failed!", Toast.LENGTH_SHORT).show();
                             } else {
-                                context.startActivity(new Intent(context, MapActivity.class));
+                                context.startActivity(new Intent(context, ListActivity.class));
                             }
                         }
                     });
@@ -54,7 +54,7 @@ public class Utils{
                                 Log.d("Yay", task.getException().getMessage());
                                 Toast.makeText(context, "Failed Signup", Toast.LENGTH_SHORT).show();
                             } else {
-                                context.startActivity(new Intent(context, MapActivity.class));
+                                context.startActivity(new Intent(context, ListActivity.class));
                             }
                         }
                     });
