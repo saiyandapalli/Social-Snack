@@ -5,21 +5,37 @@ import java.util.*;
 /** A group of users */
 public class Group {
 
-    static Group RANDOM = new Group("Random");
+    static HashMap<String, Group> mappy = new HashMap<>();
+    static Group RANDOM = new Group();
     private ArrayList<User> members;
-    private String groupName;
+    private User organizer;
+    private String name;
+    private ArrayList<Event> currEvents;
 
-    public Group(String name) {
+
+
+    public Group(User organizer, String name) {
         this.members = new ArrayList<User>();
-        this.groupName = name;
-    }
+        this.organizer = organizer;
+        this.name = name;
+        mappy.put(name, this);
 
-    public Group(ArrayList<User> membs, String name) {
+    }
+    public Group() {
+        this.members = new ArrayList<User>();
+    }
+    public ArrayList<Event> listEvents() {
+        return currEvents;
+    }
+    public Group(ArrayList<User> membs) {
         this.members.addAll(membs);
-        this.groupName = name;
     }
 
     public ArrayList<User> getMembers() {
         return this.members;
+    }
+
+    public void addEvent(Event eventx) {
+        currEvents.add(eventx);
     }
 }

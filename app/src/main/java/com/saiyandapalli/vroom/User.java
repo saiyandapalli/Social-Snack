@@ -4,10 +4,12 @@ import java.util.ArrayList;
 
 /** A user of the application. */
 public class User {
-
+    
     private String firstName;
     private String lastName;
     private ArrayList<Group> groups;
+    private ArrayList<Group> creatorOf;
+    private ArrayList<Event> listOfEvents;
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
@@ -28,7 +30,8 @@ public class User {
     public User(String first, String last) {
         this.firstName = first;
         this.lastName = last;
-//        addGroup(Group.RANDOM);
+        addGroup(Group.RANDOM);
+        listOfEvents = new ArrayList<>();
     }
 
     private String nameify(String s) {
@@ -39,6 +42,26 @@ public class User {
         throw new IllegalArgumentException();
     }
 
+    public void createGroup(String name) {
+
+    }
+    public ArrayList<Group> groupReturn() {
+        return groups;
+    }
+    public void updateEvents() {
+        ArrayList<Event> tempEvent= new ArrayList<>();
+
+
+        for (Group groupx : groups) {
+            ArrayList<Event> tempEventList = groupx.listEvents();
+            for (Event e : tempEventList) {
+                listOfEvents.add(e);
+            }
+        }
+    }
+    public ArrayList<Event> userEvents() {
+        return listOfEvents;
+    }
     public void addGroup(Group g) {
         this.groups.add(g);
     }

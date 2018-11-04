@@ -16,6 +16,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MealActivity" />
+        <activity android:name=".GroupActivity" />
+        <activity android:name=".CreateGroupActivity"></activity>
         <activity android:name=".MapActivity" />
         <activity android:name=".ListActivity"></activity>
         <activity android:name=".SendToGroupActivity"></activity>
