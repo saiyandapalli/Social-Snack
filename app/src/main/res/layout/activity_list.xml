@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ListActivity"
-    android:screenOrientation="portrait">
+    android:screenOrientation="portrait"
+    android:background="@color/color_bg_dark_pink">
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/userList"
@@ -19,4 +21,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </android.support.constraint.ConstraintLayout>

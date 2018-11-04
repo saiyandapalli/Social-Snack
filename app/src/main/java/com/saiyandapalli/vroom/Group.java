@@ -30,6 +30,9 @@ public class Group {
     public Group(ArrayList<User> membs) {
         this.members.addAll(membs);
     }
+    public Group addMember(User u) {
+        members.add(u);
+    }
 
     public ArrayList<User> getMembers() {
         return this.members;

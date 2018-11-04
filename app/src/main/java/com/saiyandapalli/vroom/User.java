@@ -27,11 +27,27 @@ public class User {
         this.groups = groups;
     }
 
+    public ArrayList<Group> getCreatorOf() {
+        return creatorOf;
+    }
+
+    public void setCreatorOf(ArrayList<Group> creatorOf) {
+        this.creatorOf = creatorOf;
+    }
+
+    public ArrayList<Event> getListOfEvents() {
+        return listOfEvents;
+    }
+
+    public void setListOfEvents(ArrayList<Event> listOfEvents) {
+        this.listOfEvents = listOfEvents;
+    }
+
     public User(String first, String last) {
         this.firstName = first;
         this.lastName = last;
-        addGroup(Group.RANDOM);
-        listOfEvents = new ArrayList<>();
+//        addGroup(Group.RANDOM);
+//        listOfEvents = new ArrayList<>();
     }
 
     private String nameify(String s) {
