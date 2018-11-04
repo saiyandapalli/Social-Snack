@@ -7,8 +7,10 @@ public class User {
     
     private String firstName;
     private String lastName;
-    private String profPicTitle;
+    private String time;
+    private String picurl;
     private ArrayList<Group> groups;
+    private ArrayList<Group> creatorOf;
     private ArrayList<Event> listOfEvents;
 
     public void setFirstName(String firstName) {
@@ -27,11 +29,59 @@ public class User {
         this.groups = groups;
     }
 
+    public ArrayList<Group> getCreatorOf() {
+        return creatorOf;
+    }
+
+    public void setCreatorOf(ArrayList<Group> creatorOf) {
+        this.creatorOf = creatorOf;
+    }
+
+    public ArrayList<Event> getListOfEvents() {
+        return listOfEvents;
+    }
+
+    public void setListOfEvents(ArrayList<Event> listOfEvents) {
+        this.listOfEvents = listOfEvents;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getPicurl() {
+        return picurl;
+    }
+
+    public void setPicurl(String picurl) {
+        this.picurl = picurl;
+    }
+
+    public User(String first, String last, String time, String picurl) {
+        this.firstName = first;
+        this.lastName = last;
+        this.time = time;
+        this.picurl = picurl;
+//        addGroup(Group.RANDOM);
+//        listOfEvents = new ArrayList<>();
+    }
+
     public User(String first, String last, String profPicTitle) {
         this.firstName = first;
         this.lastName = last;
-        this.profPicTitle = profPicTitle;
+        this.picurl = profPicTitle;
         addGroups(groups);
+        listOfEvents = new ArrayList<>();
+    }
+
+    public User(String first, String last) {
+        this.firstName = first;
+        this.lastName = last;
+        addGroup(Group.RANDOM);
         listOfEvents = new ArrayList<>();
     }
 
@@ -60,11 +110,6 @@ public class User {
             }
         }
     }
-
-    public void addEvent(Event e) {
-        listOfEvents.add(e);
-    }
-
     public ArrayList<Event> userEvents() {
         return listOfEvents;
     }
@@ -87,4 +132,5 @@ public class User {
     public String fullName() {
         return this.firstName + " " + this.lastName;
     }
+
 }
