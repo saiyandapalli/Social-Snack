@@ -20,7 +20,7 @@ import com.saiyandapalli.vroom.R;
 import static com.saiyandapalli.vroom.Utils.attemptLogin;
 import static com.saiyandapalli.vroom.Utils.attemptSignup;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class SignupActivity extends AppCompatActivity implements View.OnClickListener {
 
     public static FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_signup);
         mAuth = FirebaseAuth.getInstance();
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -46,8 +46,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         };
 
 
-        ((Button) findViewById(R.id.loginButton)).setOnClickListener(this);
-
 
         ((Button) findViewById(R.id.signupButton)).setOnClickListener(this);
 
@@ -56,13 +54,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.loginButton || id == R.id.signupButton) {
-            String email = ((EditText) findViewById(R.id.emailloginView)).getText().toString();
+        if (id == R.id.signupButton) {
+            String email = ((EditText) findViewById(R.id.emailloginView2)).getText().toString();
             String password = ((EditText) findViewById(R.id.passwordView)).getText().toString();
-            if (id == R.id.loginButton) {
-                attemptLogin(MainActivity.this, email, password);
-            } else {
-                MainActivity.this.startActivity(new Intent(MainActivity.this, SignupActivity.class));
+            if (id == R.id.signupButton) {
+                attemptSignup(SignupActivity.this, email, password);
+                attemptLogin(SignupActivity.this, email, password);
             }
         }
     }
