@@ -18,6 +18,54 @@
         android:layout_height="match_parent"
         tools:context=".MapActivity" />
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+
+        <ImageButton
+            android:id="@+id/spoon_button"
+            android:scaleType="fitXY"
+            android:adjustViewBounds="true"
+            android:background="@android:color/transparent"
+            android:layout_marginTop="20dp"
+            android:layout_width="114dp"
+            android:layout_height="38dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="20dp"
+            android:src="@drawable/fork"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="0dp" />
+
+        <ImageButton
+            android:id="@+id/fork_button"
+            android:scaleType="fitXY"
+            android:adjustViewBounds="true"
+            android:background="@android:color/transparent"
+            android:layout_marginTop="20dp"
+            android:layout_width="108dp"
+            android:layout_height="37dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/spoon"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp" />
+
+        <ImageButton
+            android:id="@+id/plate_button"
+            android:scaleType="fitXY"
+            android:adjustViewBounds="true"
+            android:background="@android:color/transparent"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/plate" />
+    </RelativeLayout>
+
+
     <!-- Container for contents of drawer - use NavigationView to make configuration easier -->
     <ListView
         android:id="@+id/nav_view"
