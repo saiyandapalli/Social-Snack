@@ -13,24 +13,21 @@ import android.widget.TextView;
 import android.content.Intent;
 
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 public class MealActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
-    final String[] MONTHS = new String[]{"January", "February", "March", "April",
-                                         "May", "June", "July", "August", "September",
-                                         "October", "November", "December"};
-    final String[] DAYS = new String[]{"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+    final String[] MONTHS = new String[]{"Jan", "Feb", "Mar", "Apr",
+                                         "May", "Jun", "Jul", "Aug", "Sep",
+                                         "Oct", "Nov", "Dec"};
 
     Button datePickBtn;
     Button submitBtn;
     TextView timeTxt;
-    TextView ampmTxt;
-    TextView dateTxt;
+    TextView moTxt;
     TextView dayTxt;
     TextView prefs;
 
-    int day, dayOfWeek, month, year, hour, minute;
+    int year, day, month, hour, minute;
     String ampm;
     String prefsTxt;
 
@@ -44,22 +41,19 @@ public class MealActivity extends AppCompatActivity implements DatePickerDialog.
         year = calendar.get(Calendar.YEAR);
         month = calendar.get(Calendar.MONTH);
         day = calendar.get(Calendar.DAY_OF_MONTH);
-        dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK) - 1;
         hour = calendar.get(Calendar.HOUR_OF_DAY);
         minute = calendar.get(Calendar.MINUTE);
-        ampm = (calendar.get(Calendar.AM_PM) == 0) ? "AM" : "PM";
+        ampm = (hour >= 12) ? "PM" : "AM";
 
         timeTxt = (TextView) findViewById(R.id.timeTxt);
-        dateTxt = (TextView) findViewById(R.id.dateTxt);
         dayTxt = (TextView) findViewById(R.id.dayTxt);
-        ampmTxt = (TextView) findViewById(R.id.ampmTxt);
+        moTxt = (TextView) findViewById(R.id.moTxt);
 
         String hourStr = (hour % 12 != 0) ? Integer.toString(hour % 12) : "12";
         String minStr = (minute < 10) ? "0" + Integer.toString(minute) : Integer.toString(minute);
-        dateTxt.setText(MONTHS[month] + " " + day + ", " + year);
-        dayTxt.setText(DAYS[dayOfWeek]);
-        timeTxt.setText("@" + hourStr + ":" + minStr);
-        ampmTxt.setText(ampm);
+        moTxt.setText(MONTHS[month]);
+        dayTxt.setText(Integer.toString(day));
+        timeTxt.setText("@" + hourStr + ":" + minStr + " " + ampm);
 
         /* Sets up date/time picker. */
         datePickBtn = (Button) findViewById(R.id.datePickButton);
@@ -90,11 +84,9 @@ public class MealActivity extends AppCompatActivity implements DatePickerDialog.
             }
 
             public void openGroupSelectionActivity() {
-                Intent intent = new Intent(new Intent(MealActivity.this, SendToGroupActivity.class));
-                intent.putExtra("YEAR", year);
+                Intent intent = new Intent(new Intent(MealActivity.this, MapsActivity.class));
                 intent.putExtra("MONTH", month);
                 intent.putExtra("DAY", day);
-                intent.putExtra("DAY_OF_WEEK", dayOfWeek);
                 intent.putExtra("HOUR", hour);
                 intent.putExtra("MINUTE", minute);
                 intent.putExtra("PREFS", prefsTxt);
@@ -109,16 +101,12 @@ public class MealActivity extends AppCompatActivity implements DatePickerDialog.
         month = i1;
         day = i2;
 
-        Calendar myCalendar = new GregorianCalendar(year, month, day);
-        dayOfWeek = myCalendar.get(Calendar.DAY_OF_WEEK) - 1;
-
-        dateTxt.setText(MONTHS[month] + " " + day + ", " + year);
-        dayTxt.setText(DAYS[dayOfWeek]);
+        moTxt.setText(MONTHS[month]);
+        dayTxt.setText(Integer.toString(day));
 
         Calendar c = Calendar.getInstance();
         hour = c.get(Calendar.HOUR_OF_DAY);
         minute = c.get(Calendar.MINUTE);
-
 
         TimePickerDialog timePickerDialog = new TimePickerDialog(MealActivity.this, MealActivity.this, hour, minute, DateFormat.is24HourFormat(this));
         timePickerDialog.show();
@@ -128,11 +116,11 @@ public class MealActivity extends AppCompatActivity implements DatePickerDialog.
     public void onTimeSet(TimePicker timePicker, int i, int i1) {
         hour = i;
         minute = i1;
+        ampm = (hour >= 12) ? "PM" : "AM";
 
         String hourStr = (hour % 12 != 0) ? Integer.toString(hour % 12) : "12";
         String minStr = (minute < 10) ? "0" + Integer.toString(minute) : Integer.toString(minute);
-        timeTxt.setText("@" + hourStr + ":" + minStr);
-        ampmTxt.setText(ampm);
+        timeTxt.setText("@" + hourStr + ":" + minStr + " " + ampm);
     }
 
 }
