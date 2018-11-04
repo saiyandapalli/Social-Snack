@@ -1,6 +1,13 @@
 package com.saiyandapalli.vroom;
 
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -29,6 +36,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
@@ -56,8 +64,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     //Replace these with the corresponding arrays:
     int[] GROUP_ICON = {R.drawable.snack, R.drawable.snack, R.drawable.snack, R.drawable.snack, R.drawable.snack, R.drawable.snack, R.drawable.snack, R.drawable.snack, R.drawable.snack};
     String[] GROUP_NAMES = {"Azaad", "NeuroTech", "Anova", "MDB", "AX Captains", "Zahanat", "Cal Bhangra", "Roomies", "All"};
-    String[] friendsLocations = {"19811 Portal Plaza, Cupertino, CA"};
-    String[] friendsNames = {"Cupertino"};
+    String[] friendsLocations = {"19811 Portal Plaza, Cupertino, CA", "Lawson Middle School, Cupertino, CA", "Taco Bell, Berkeley, CA", "2530 Hillegass Avenue, Berkeley, CA", "Unit 2, Berkeley, CA"};
+    String[] friendsNames = {"abhinav", "shreyas", "sai", "migs", "sanket", "brandon"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -200,11 +208,41 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
 
         if (!title.equals("My Location")) {
-            MarkerOptions options = new MarkerOptions().position(latLng).title(title);
+            MarkerOptions options = new MarkerOptions().position(latLng).title(title)
+                    .icon(BitmapDescriptorFactory.fromBitmap(resizeMapIcons(title,100,100)));
             mMap.addMarker(options);
         } else {
             currLoc = latLng;
         }
+    }
+
+    private Bitmap resizeMapIcons(String iconName, int width, int height){
+        Bitmap imageBitmap = BitmapFactory.decodeResource(getResources(), getResources().getIdentifier(iconName, "drawable", getPackageName()));
+        Bitmap resizedBitmap = Bitmap.createScaledBitmap(imageBitmap, width, height, false);
+        resizedBitmap = getCroppedBitmap(resizedBitmap);
+        return resizedBitmap;
+    }
+
+    private Bitmap getCroppedBitmap(Bitmap bitmap) {
+        Bitmap output = Bitmap.createBitmap(bitmap.getWidth(),
+                bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(output);
+
+        final int color = 0xff424242;
+        final Paint paint = new Paint();
+        final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
+
+        paint.setAntiAlias(true);
+        canvas.drawARGB(0, 0, 0, 0);
+        paint.setColor(color);
+        // canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
+        canvas.drawCircle(bitmap.getWidth() / 2, bitmap.getHeight() / 2,
+                bitmap.getWidth() / 2, paint);
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        canvas.drawBitmap(bitmap, rect, rect, paint);
+        //Bitmap _bmp = Bitmap.createScaledBitmap(output, 60, 60, false);
+        //return _bmp;
+        return output;
     }
 
     @Override
