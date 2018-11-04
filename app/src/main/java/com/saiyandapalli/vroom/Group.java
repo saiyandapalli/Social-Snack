@@ -38,4 +38,8 @@ public class Group {
     public void addEvent(Event eventx) {
         currEvents.add(eventx);
     }
+
+    public void addMember(User u) {
+        members.add(u);
+    }
 }

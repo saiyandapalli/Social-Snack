@@ -7,8 +7,8 @@ public class User {
     
     private String firstName;
     private String lastName;
+    private String profPicTitle;
     private ArrayList<Group> groups;
-    private ArrayList<Group> creatorOf;
     private ArrayList<Event> listOfEvents;
 
     public void setFirstName(String firstName) {
@@ -27,10 +27,11 @@ public class User {
         this.groups = groups;
     }
 
-    public User(String first, String last) {
+    public User(String first, String last, String profPicTitle) {
         this.firstName = first;
         this.lastName = last;
-        addGroup(Group.RANDOM);
+        this.profPicTitle = profPicTitle;
+        addGroups(groups);
         listOfEvents = new ArrayList<>();
     }
 
@@ -59,6 +60,11 @@ public class User {
             }
         }
     }
+
+    public void addEvent(Event e) {
+        listOfEvents.add(e);
+    }
+
     public ArrayList<Event> userEvents() {
         return listOfEvents;
     }
@@ -81,5 +87,4 @@ public class User {
     public String fullName() {
         return this.firstName + " " + this.lastName;
     }
-
 }

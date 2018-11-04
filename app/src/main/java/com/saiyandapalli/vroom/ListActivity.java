@@ -15,20 +15,16 @@ public class ListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list);
 
         ArrayList<User> users = new ArrayList<>();
-        users.add(new User("Daddy", "Denero"));
-        users.add(new User("Daddy", "Denero"));
-        users.add(new User("Daddy", "Denero"));
-        users.add(new User("Daddy", "Denero"));
-        users.add(new User("Daddy", "Denero"));
-        users.add(new User("Daddy", "Denero"));
-        users.add(new User("Daddy", "Denero"));
-        users.add(new User("Daddy", "Denero"));
-        users.add(new User("Daddy", "Denero"));
-        users.add(new User("Daddy", "Denero"));
-        users.add(new User("Daddy", "Denero"));
-        users.add(new User("Daddy", "Denero"));
-        users.add(new User("Daddy", "Denero"));
-        users.add(new User("Daddy", "Denero"));
+        users.add(new User("Daddy", "Denero", "daddy"));
+        users.add(new User("Daddy", "Denero", "daddy"));
+        users.add(new User("Daddy", "Denero", "daddy"));
+        users.add(new User("Daddy", "Denero", "daddy"));
+        users.add(new User("Daddy", "Denero", "daddy"));
+        users.add(new User("Daddy", "Denero", "daddy"));
+        users.add(new User("Daddy", "Denero", "daddy"));
+        users.add(new User("Daddy", "Denero", "daddy"));
+
+
 
         // standard stuff
         RecyclerView recyclerView = findViewById(R.id.userList);

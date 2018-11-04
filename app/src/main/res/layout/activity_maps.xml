@@ -35,7 +35,8 @@
             android:layout_marginStart="20dp"
             android:src="@drawable/fork"
             android:layout_alignParentLeft="true"
-            android:layout_marginLeft="0dp" />
+            android:layout_marginLeft="0dp"
+            android:onClick="myClickHandler"/>
 
         <ImageButton
             android:id="@+id/fork_button"
@@ -50,7 +51,8 @@
             android:layout_marginEnd="20dp"
             android:src="@drawable/spoon"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="20dp" />
+            android:layout_marginRight="20dp"
+            android:onClick="myClickHandler"/>
 
         <ImageButton
             android:id="@+id/plate_button"
@@ -62,7 +64,8 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="20dp"
-            android:src="@drawable/plate" />
+            android:src="@drawable/plate"
+            android:onClick="myClickHandler"/>
     </RelativeLayout>
 
 

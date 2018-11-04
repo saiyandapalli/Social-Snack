@@ -1,5 +1,6 @@
 package com.saiyandapalli.vroom;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -8,6 +9,8 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -64,8 +67,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private static final int[] COLORS = new int[]{R.color.primary_dark_material_light};
 
     //Replace these with the corresponding arrays:
-    int[] GROUP_ICON = {R.drawable.snack, R.drawable.snack, R.drawable.snack, R.drawable.snack, R.drawable.snack, R.drawable.snack, R.drawable.snack, R.drawable.snack, R.drawable.snack};
-    String[] GROUP_NAMES = {"Azaad", "NeuroTech", "Anova", "MDB", "AX Captains", "Zahanat", "Cal Bhangra", "Roomies", "All"};
+    ArrayList<User> users_list = new ArrayList<>();
+    ArrayList<Group> groups_list = new ArrayList<>();
+
+    int[] GROUP_ICON = {R.drawable.azaad, R.drawable.neurotech, R.drawable.anova, R.drawable.mdb, R.drawable.captains, R.drawable.zahanat, R.drawable.bhangra, R.drawable.roomies, R.drawable.all};
+    String[] GROUP_NAMES = {"Azaad", "NeuroTech", "Anova", "MDB", "Captains", "Zahanat", "Bhangra", "Roomies", "All"};
+
     String[] friendsLocations = {"19811 Portal Plaza, Cupertino, CA", "Lawson Middle School, Cupertino, CA", "Taco Bell, Berkeley, CA", "2530 Hillegass Avenue, Berkeley, CA", "Unit 2, Berkeley, CA"};
     String[] friendsNames = {"abhinav", "shreyas", "sai", "migs", "sanket", "brandon"};
 
@@ -176,6 +183,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //                    }
 
                     Toast.makeText(this, friendsLocations[i], Toast.LENGTH_SHORT).show();
+
+                    //Toggle the markers
+
+
+
                     moveCamera(new LatLng(friendAddresses[i].getLatitude(), friendAddresses[i].getLongitude()), DEFAULT_ZOOM, friendsNames[i]);
                 } catch (IOException e) {
 
@@ -319,6 +331,75 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         polylines.clear();
     }
 
+    public void myClickHandler(View target) {
+        if (target.equals(findViewById(R.id.fork_button))) {
+//            DrawerLayout drawer = (DrawerLayout)findViewById(R.id.drawer_layout);
+//
+//            if(!drawer.isDrawerOpen(GravityCompat.START)) {
+//                drawer.openDrawer(Gravity.START);
+//            } else {
+//                drawer.closeDrawer(Gravity.END);
+//            }
+//
+//            drawer.openDrawer(Gravity.LEFT);
+
+        } else if (target.equals(findViewById(R.id.spoon_button))) {
+            startActivity(new Intent(this, ListActivity.class));
+        } else if (target.equals(findViewById(R.id.plate_button))) {
+            startActivity(new Intent(this, MealActivity.class));
+        }
+    }
+
+    private void generateUsers() {
+        //int[] GROUP_ICON = {R.drawable.snack, R.drawable.snack, R.drawable.snack, R.drawable.snack, R.drawable.snack, R.drawable.snack, R.drawable.snack, R.drawable.snack, R.drawable.snack};
+        //GROUP_NAMES = new String[]{"Azaad", "NeuroTech", "Anova", "MDB", "AX Captains", "Zahanat", "Cal Bhangra", "Roomies", "All"};
+        friendsLocations = new String[]{"19811 Portal Plaza, Cupertino, CA",
+                "Lawson Middle School, Cupertino, CA",
+                "Taco Bell, Berkeley, CA",
+                "2530 Hillegass Avenue, Berkeley, CA",
+                "Unit 2, Berkeley, CA",
+                "Pappy's, Berkeley, CA",
+                "MLK Student Union, Berkeley, CA",
+                "People's Park, Berkeley, CA",
+                "Soda Hall, Berkeley, CA",
+                "Sliver Pizzeria, Berkeley, CA",
+                "Wheeler Hall, Berkeley, CA",
+                "Downtown Berkeley Bart, Berkeley, CA",
+                "Racha's Cafe, Berkeley, CA",
+                "Homeroom, Oakland, CA",
+                "Memorial Glade, Berkeley, CA"};
+        String[] firstnames = {"abhinav", "shreyas", "sai", "yash", "migs", "sanket", "brandon", "George", "John", "Thomas", "James", "Donald", "Barack", "Theodore", "Bill"};
+        String[] lastnames = {"pottabathula", "patankar", "yandapalli", "singh", "swamy", "ngyuen", "Washington", "Adams", "Jefferson", "Madison", "Trump", "Obama", "Roosevelt", "Clinton"};
+        int[][] groupRefs = {{0, 1, 4, 7, 8}, {0, 7, 8}, {2, 3, 7, 8}, {0, 7, 8}, {8},
+                {7, 8}, {7, 8}, {1, 4, 5, 8}, {3, 6, 8}, {5, 4, 28},
+                {4, 6, 1, 8}, {8}, {2, 7, 8}, {1, 2, 3, 4, 8}, {0, 1, 3, 5, 7, 8}};
+
+        //Initialize users_list (an ArrayList<User>)
+        ArrayList<Group> groups = new ArrayList<>();
+        for (String group : GROUP_NAMES) {
+            groups.add(new Group(null, group));
+        }
+
+
+        users_list = new ArrayList<User>();
+        for (int i = 0; i < firstnames.length; i++) {
+            User temp = new User(firstnames[i], lastnames[i], firstnames[i].toLowerCase());
+            for (int j : groupRefs[i]) {
+                temp.addGroup(groups.get(j));
+            }
+            users_list.add(temp);
+        }
+
+        for (User u : users_list) {
+            for (Group g : u.getGroups()) {
+                g.addMember(u);
+            }
+        }
+
+        groups_list = groups;
+        friendsNames = firstnames;
+    }
+
 
     class CustomAdapter extends BaseAdapter {
 
@@ -344,7 +425,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             final ImageView imgView = (ImageView) view.findViewById(R.id.imageView);
             final TextView txtView = (TextView) view.findViewById(R.id.textView_name);
 
+            //Drawable dr = getResources().getDrawable(GROUP_ICON[i]);
+            //Bitmap bitmap = ((BitmapDrawable) dr).getBitmap();
+            // Scale it to 50 x 50
+            //Bitmap.sca
+            //Drawable d = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, 10, 10, true));
+            // Set your new, scaled drawable "d"
             imgView.setImageResource(GROUP_ICON[i]);
+            //imgView.setImageBitmap(resizeMapIcons(GROUP_NAMES[i], 10, 10));
+            //imgView.setImageDrawable(d);
             txtView.setText(GROUP_NAMES[i]);
 
             return view;
