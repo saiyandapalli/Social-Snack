@@ -7,6 +7,8 @@ public class User {
     
     private String firstName;
     private String lastName;
+    private String time;
+    private String picurl;
     private ArrayList<Group> groups;
     private ArrayList<Group> creatorOf;
     private ArrayList<Event> listOfEvents;
@@ -43,9 +45,36 @@ public class User {
         this.listOfEvents = listOfEvents;
     }
 
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getPicurl() {
+        return picurl;
+    }
+
+    public void setPicurl(String picurl) {
+        this.picurl = picurl;
+    }
+
+    public User(String first, String last, String time, String picurl) {
+        this.firstName = first;
+        this.lastName = last;
+        this.time = time;
+        this.picurl = picurl;
+//        addGroup(Group.RANDOM);
+//        listOfEvents = new ArrayList<>();
+    }
+
     public User(String first, String last) {
         this.firstName = first;
         this.lastName = last;
+        this.time = "";
+        this.picurl = "";
 //        addGroup(Group.RANDOM);
 //        listOfEvents = new ArrayList<>();
     }
