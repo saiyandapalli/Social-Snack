@@ -9,10 +9,26 @@ public class User {
     private String lastName;
     private ArrayList<Group> groups;
 
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public ArrayList<Group> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(ArrayList<Group> groups) {
+        this.groups = groups;
+    }
+
     public User(String first, String last) {
-        this.firstName = nameify(first);
-        this.lastName = nameify(last);
-        addGroup(Group.RANDOM);
+        this.firstName = first;
+        this.lastName = last;
+//        addGroup(Group.RANDOM);
     }
 
     private String nameify(String s) {
