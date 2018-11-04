@@ -9,8 +9,6 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -23,6 +21,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -73,6 +73,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     int[] GROUP_ICON = {R.drawable.azaad, R.drawable.neurotech, R.drawable.anova, R.drawable.mdb, R.drawable.captains, R.drawable.zahanat, R.drawable.bhangra, R.drawable.roomies, R.drawable.all};
     String[] GROUP_NAMES = {"Azaad", "NeuroTech", "Anova", "MDB", "Captains", "Zahanat", "Bhangra", "Roomies", "All"};
 
+
     String[] friendsLocations = {"19811 Portal Plaza, Cupertino, CA", "Lawson Middle School, Cupertino, CA", "Taco Bell, Berkeley, CA", "2530 Hillegass Avenue, Berkeley, CA", "Unit 2, Berkeley, CA"};
     String[] friendsNames = {"abhinav", "shreyas", "sai", "migs", "sanket", "brandon"};
 
@@ -95,10 +96,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         CustomAdapter customAdapter = new CustomAdapter();
         nav_view.setAdapter(customAdapter);
 
+        generateUsers();
         nav_view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(getApplicationContext(), GROUP_NAMES[i], Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), GROUP_NAMES[i], Toast.LENGTH_SHORT).show();
+                mMap.clear();
+                ArrayList<User> memberMarker = groups_list.get(i).getMembers();
+                Geocoder geocoder = new Geocoder(MapsActivity.this);
+                Address[] groupMemberAddresses = new Address[memberMarker.size()];
+                for (int j = 0; j < memberMarker.size(); j++) {
+                    try {
+                        groupMemberAddresses[j] = geocoder.getFromLocationName(memberMarker.get(j).getLocation(), 1).get(0);
+                        moveCamera(new LatLng(groupMemberAddresses[j].getLatitude(), groupMemberAddresses[j].getLongitude()), DEFAULT_ZOOM, memberMarker.get(j).getFirstName());
+                    } catch (IOException e) {
+
+                    }
+                }
             }
         });
     }
@@ -170,6 +184,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 try {
                     friendAddresses[i] = geocoder.getFromLocationName(friendsLocations[i], 1).get(0);
 
+
 //                    while (currLoc == null) {
 //                        getDeviceLocation();
 //                    }
@@ -182,14 +197,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //                        minDistance = dist;
 //                    }
 
-                    Toast.makeText(this, friendsLocations[i], Toast.LENGTH_SHORT).show();
-
+//                    Toast.makeText(this, friendsLocations[i], Toast.LENGTH_SHORT).show();
+//
 //                    //Toggle the markers
 //                    Group showPeople = groups_list.get(i);
 //                    for (User person: showPeople) {
 //                        person.
 //                    }
-
+//
 
                     moveCamera(new LatLng(friendAddresses[i].getLatitude(), friendAddresses[i].getLongitude()), DEFAULT_ZOOM, friendsNames[i]);
                 } catch (IOException e) {
@@ -335,7 +350,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     public void myClickHandler(View target) {
-        if (target.equals(findViewById(R.id.fork_button))) {
+        if (target.equals(findViewById(R.id.spoon_button))) {
 //            DrawerLayout drawer = (DrawerLayout)findViewById(R.id.drawer_layout);
 //
 //            if(!drawer.isDrawerOpen(GravityCompat.START)) {
@@ -346,7 +361,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //
 //            drawer.openDrawer(Gravity.LEFT);
 
-        } else if (target.equals(findViewById(R.id.spoon_button))) {
+        } else if (target.equals(findViewById(R.id.fork_button))) {
             startActivity(new Intent(this, ListActivity.class));
         } else if (target.equals(findViewById(R.id.plate_button))) {
             startActivity(new Intent(this, MealActivity.class));
@@ -371,10 +386,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 "Racha's Cafe, Berkeley, CA",
                 "Homeroom, Oakland, CA",
                 "Memorial Glade, Berkeley, CA"};
-        String[] firstnames = {"abhinav", "shreyas", "sai", "yash", "migs", "sanket", "brandon", "George", "John", "Thomas", "James", "Donald", "Barack", "Theodore", "Bill"};
-        String[] lastnames = {"pottabathula", "patankar", "yandapalli", "singh", "swamy", "ngyuen", "Washington", "Adams", "Jefferson", "Madison", "Trump", "Obama", "Roosevelt", "Clinton"};
+        String[] firstnames = {"abhinav", "shreyas", "sai", "yash", "migs", "sanket", "brandon", "george", "john", "thomas", "james", "donald", "barack", "theodore", "bill"};
+        String[] lastnames = {"pottabathula", "patankar", "yandapalli", "vanvari", "singh", "swamy", "ngyuen", "washington", "adams", "jefferson", "madison", "trump", "obama", "roosevelt", "clinton"};
         int[][] groupRefs = {{0, 1, 4, 7, 8}, {0, 7, 8}, {2, 3, 7, 8}, {0, 7, 8}, {8},
-                {7, 8}, {7, 8}, {1, 4, 5, 8}, {3, 6, 8}, {5, 4, 28},
+                {7, 8}, {7, 8}, {1, 4, 5, 8}, {3, 6, 8}, {5, 4, 8},
                 {4, 6, 1, 8}, {8}, {2, 7, 8}, {1, 2, 3, 4, 8}, {0, 1, 3, 5, 7, 8}};
 
         //Initialize users_list (an ArrayList<User>)
@@ -387,6 +402,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         users_list = new ArrayList<User>();
         for (int i = 0; i < firstnames.length; i++) {
             User temp = new User(firstnames[i], lastnames[i], firstnames[i].toLowerCase());
+            temp.setLocation(friendsLocations[i]);
             for (int j : groupRefs[i]) {
                 temp.addGroup(groups.get(j));
             }

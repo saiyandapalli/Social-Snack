@@ -4,14 +4,14 @@ import java.util.ArrayList;
 
 /** A user of the application. */
 public class User {
-    
+    private String location = "";
     private String firstName;
     private String lastName;
     private String time;
     private String picurl;
-    private ArrayList<Group> groups;
-    private ArrayList<Group> creatorOf;
-    private ArrayList<Event> listOfEvents;
+    private ArrayList<Group> groups = new ArrayList<>();
+    private ArrayList<Group> creatorOf = new ArrayList<>();
+    private ArrayList<Event> listOfEvents = new ArrayList<>();
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
@@ -131,6 +131,14 @@ public class User {
 
     public String fullName() {
         return this.firstName + " " + this.lastName;
+    }
+
+    public void setLocation(String loc) {
+        location = loc;
+    }
+
+    public String getLocation() {
+        return location;
     }
 
 }

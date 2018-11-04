@@ -17,10 +17,10 @@ public class ListActivity extends AppCompatActivity {
         ArrayList<User> users = new ArrayList<>();
         users.add(new User("Yash", "Vanvari", "12:00-1:00","/p/g"));
         users.add(new User("Sai", "Yandapalli", "3:00-5:00","/p/g"));
-        users.add(new User("Abhi", "Pottabhatula", "9:00 -10:30","/p/g"));
+        users.add(new User("Abhi", "Potta", "9:00 -10:30","/p/g"));
         users.add(new User("Shreyas", "Patanker", "4:00-4:30","/p/g"));
         users.add(new User("Abe", "Lincoln", "6:00-8", "/p/g"));
-        users.add(new User("George", "Washington", "9:00-10:00", "/p/g"));
+        users.add(new User("George", "Washing", "9:00-10:00", "/p/g"));
         users.add(new User("Sad", "man", "3:00-4:40","/p/g"));
         users.add(new User("Daddy", "Denero","",""));
         users.add(new User("Daddy", "Denero","",""));
