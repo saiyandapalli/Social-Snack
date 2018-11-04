@@ -34,7 +34,7 @@ public class Utils{
                     });
         }
     }
- 
+
     public static void attemptSignup(final Context context, String email, String password) {
 
         if (!email.equals("") && !password.equals("")) {
