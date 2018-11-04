@@ -5,7 +5,9 @@
     android:id="@+id/activity_login"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.saiyandapalli.vroom.MainActivity">
+    tools:context="com.saiyandapalli.vroom.MainActivity"
+    android:background="@color/color_button_dark_purple"
+    android:screenOrientation="portrait">
     <!--android:background="@drawable/background">-->
 
     <TextView
