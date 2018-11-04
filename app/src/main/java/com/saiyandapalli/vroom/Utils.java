@@ -3,20 +3,14 @@ package com.saiyandapalli.vroom;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class Utils{
     public static FirebaseAuth mAuth;
@@ -34,7 +28,7 @@ public class Utils{
                                 Log.w("Aww", "signInWithEmail:failed", task.getException());
                                 Toast.makeText(context, "Sign in failed!", Toast.LENGTH_SHORT).show();
                             } else {
-                                context.startActivity(new Intent(context, ListActivity.class));
+                                context.startActivity(new Intent(context, MapsActivity.class));
                             }
                         }
                     });
@@ -54,7 +48,7 @@ public class Utils{
                                 Log.d("Yay", task.getException().getMessage());
                                 Toast.makeText(context, "Failed Signup", Toast.LENGTH_SHORT).show();
                             } else {
-                                context.startActivity(new Intent(context, ListActivity.class));
+                                context.startActivity(new Intent(context, MapsActivity.class));
                             }
                         }
                     });
