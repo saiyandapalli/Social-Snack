@@ -30,7 +30,7 @@ public class Group {
     public Group(ArrayList<User> membs) {
         this.members.addAll(membs);
     }
-    public Group addMember(User u) {
+    public void addMember(User u) {
         members.add(u);
     }
 
