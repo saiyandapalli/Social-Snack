@@ -58,6 +58,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.UserViewHolder
         // this code could be in onBindViewHolder but its cleaner to do it like this
         void bind(User user) {
             name.setText(user.fullName());
+            time.setText(user.getTime());
         }
     }
 }
