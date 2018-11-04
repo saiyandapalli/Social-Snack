@@ -184,8 +184,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                     Toast.makeText(this, friendsLocations[i], Toast.LENGTH_SHORT).show();
 
-                    //Toggle the markers
-
+//                    //Toggle the markers
+//                    Group showPeople = groups_list.get(i);
+//                    for (User person: showPeople) {
+//                        person.
+//                    }
 
 
                     moveCamera(new LatLng(friendAddresses[i].getLatitude(), friendAddresses[i].getLongitude()), DEFAULT_ZOOM, friendsNames[i]);
